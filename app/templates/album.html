@@ -1,4 +1,9 @@
 <main class="album-view container narrow">
+    <div ng-if="debuggable" class="debugInfo">
+        <a class="btn btn-default btn-link" ng-click="album.debug = !album.debug">Toggle Debug</a>
+        <pre ng-if="album.debug">{{ album | json }}</pre>
+    </div>
+    <pre ng-if="album.debug" ng-click="album.debug = !album.debug">{{ album | json }}</pre>
     <section class="clearfix">
         <div class="column half">
             <img src="{{album.albumData.albumArtUrl}}" class="album-cover-art">
