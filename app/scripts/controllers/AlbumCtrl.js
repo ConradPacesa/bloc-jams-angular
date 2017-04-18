@@ -1,6 +1,6 @@
 (function() {
     function AlbumCtrl(Fixtures, Debug) {
-        this.debug = Debug.getDebug();
+        //this.debug = Debug.getDebug();
         this.albumData = Fixtures.getAlbum();
     }
 
