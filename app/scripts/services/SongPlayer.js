@@ -2,11 +2,6 @@
     function SongPlayer(Fixtures) {
         var SongPlayer = {}
         /**
-        * @desc Current playing album object
-        * @type {object}
-        */
-        var currentAlbum = Fixtures.getAlbum();
-        /**
         * @desc Buzz object audio file
         * @type {object}
         */
@@ -18,8 +13,7 @@
         */
         var setSong = function(song) {
             if (currentBuzzObject) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(song);
             }
 
             currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -37,6 +31,16 @@
         var playSong = function(song) {
             currentBuzzObject.play();
             song.playing = true;
+            SongPlayer.currentPlayingAlbum = Fixtures.getAlbum();
+        };
+        /**
+        * @function stopSong
+        * @desc Stops playing the loaded audio file, sets playing variable of selected song to null
+        * @param {Object} song
+        */
+        var stopSong = function(song) {
+            currentBuzzObject.stop();
+            SongPlayer.currentSong.playing = null;
         };
         /**
         * @function getSongIndex
@@ -44,13 +48,23 @@
         * @param {Object} song
         */
         var getSongIndex = function(song) {
-            return currentAlbum.songs.indexOf(song);
+            return SongPlayer.currentAlbum.songs.indexOf(song);
         }
         /**
         * @desc Active song object from list of songs
         * @type {object}
         */
         SongPlayer.currentSong = null;
+        /**
+        * @desc Current playing album object
+        * @type {object}
+        */
+        SongPlayer.currentAlbum = Fixtures.getAlbum();
+        /**
+        * @desc Album of the currnet playing song used for ng-show in player bar
+        * @type {object}
+        */
+        SongPlayer.currentPlayingAlbum = false;
         /**
         * @method play
         * @desc Executes playSong function, and sets a new song if selected song is not the SongPlayer.currentSong
@@ -88,10 +102,26 @@
             currentSongIndex--;
 
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(song);
             } else {
-                var song = currentAlbum.songs[currentSongIndex];
+                var song = SongPlayer.currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
+        /**
+        * @method next
+        * @desc If current playing song is last song, stops playing,
+        *       othewise starts playing next song in index.
+        */
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+
+            if (currentSongIndex >= SongPlayer.currentAlbum.songs.length) {
+                stopSong(song);
+            } else {
+                var song = SongPlayer.currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
