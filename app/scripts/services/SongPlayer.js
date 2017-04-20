@@ -1,6 +1,6 @@
 (function() {
     function SongPlayer(Fixtures) {
-        var SongPlayer = {}
+        var SongPlayer = {};
         /**
         * @desc Buzz object audio file
         * @type {object}
