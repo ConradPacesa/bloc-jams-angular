@@ -26,7 +26,9 @@
             <h3 class="artist-name" ng-show="playerBar.songPlayer.currentPlayingAlbum">
                 {{playerBar.songPlayer.currentAlbum.title}}</h3>
             <div class="seek-control">
-                <seek-bar></seek-bar>
+                <seek-bar value="{{ playerBar.songPlayer.currentTime }}"
+                max="{{ playerBar.songPlayer.currentSong.duration }}"
+                on-change="playerBar.songPlayer.setCurrentTime(value)"></seek-bar>
                 <div class="current-time"></div>
                 <div class="total-time"></div>
             </div>

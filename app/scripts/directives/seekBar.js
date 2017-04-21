@@ -18,7 +18,9 @@
             templateUrl:'/templates/directives/seek_bar.html',
             replace: true,
             restrict: 'E',
-            scope: { },
+            scope: {
+                onChange: '&'
+            },
             /**
             * @function
             * @desc Links directive logic to DOM, holds directive logic
@@ -40,6 +42,14 @@
                 * @type {object}
                 */
                 var seekBar = $(element);
+
+                attributes.$observe('value', function(newValue) {
+                    scope.value = newValue;
+                });
+
+                attributes.$observe('max', function(newValue) {
+                    scope.max = newValue;
+                });
                 /**
                 * @function percentString
                 * @desc Calculates a percent based on the value and max value of a seek bar
@@ -72,6 +82,7 @@
                 scope.onClickSeekBar = function(event) {
                     var percent = calculatePercent(seekBar, event);
                     scope.value = percent * scope.max;
+                    notifyOnChange(scope.value);
                 };
                 /**
                 * @method trackThumb
@@ -82,6 +93,7 @@
                         var percent = calculatePercent(seekBar, event);
                         scope.$apply(function() {
                             scope.value = percent * scope.max;
+                            notifyOnChange(scope.value);
                         });
                     });
 
@@ -89,6 +101,16 @@
                         $document.unbind('mousemove.thumb');
                         $document.unbind('mouseup.thumb');
                     });
+                };
+                /**
+                * @function notifyOnChange
+                * @desc Notifies onChange function that scope value has changed 
+                * @param {Number} newValue
+                */
+                var notifyOnChange = function(newValue) {
+                    if (typeof scope.onChange === 'function') {
+                        scope.onChange({value: newValue});
+                    }
                 };
             }
         };
