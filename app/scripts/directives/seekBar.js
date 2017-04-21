@@ -58,6 +58,13 @@
                     return {width: percentString()};
                 };
                 /**
+                * @method thumbStyle
+                * @desc Moves the thumb element to percentString value
+                */
+                scope.thumbStyle = function() {
+                    return {left: percentString()};
+                };
+                /**
                 * @method onClickSeekBar
                 * @desc Updates the seek bar value based on seek bar width and location of click on seek bar
                 * @param {object} event
@@ -68,7 +75,7 @@
                 };
                 /**
                 * @method trackThumb
-                * @desc Uses $apply to constantly applly changes in value to seek bar as user drags seek bar thumb 
+                * @desc Uses $apply to constantly applly changes in value to seek bar as user drags seek bar thumb
                 */
                 scope.trackThumb = function() {
                     $document.bind('mousemove.thumb', function(event) {
