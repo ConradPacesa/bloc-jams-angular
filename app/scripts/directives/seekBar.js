@@ -33,7 +33,7 @@
                 */
                 scope.value = 0;
                 /**
-                * @desc Holds max value of seek bar, default set to 0
+                * @desc Holds max value of seek bar, default set to 100
                 * @type {object}
                 */
                 scope.max = 100;
@@ -104,7 +104,7 @@
                 };
                 /**
                 * @function notifyOnChange
-                * @desc Notifies onChange function that scope value has changed 
+                * @desc Notifies onChange function that scope value has changed
                 * @param {Number} newValue
                 */
                 var notifyOnChange = function(newValue) {

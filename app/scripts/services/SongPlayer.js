@@ -65,6 +65,21 @@
         */
         SongPlayer.currentTime = null;
         /**
+        * @desc Sets default value of volume to 80
+        * @type {number}
+        */
+        SongPlayer.volume = 80;
+        /**
+        * @method setVolume
+        * @desc Changes the volume in the currentBuzzObject
+        * @param {number} volume
+        */
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+            }
+        };
+        /**
         * @desc Current playing album object
         * @type {object}
         */
