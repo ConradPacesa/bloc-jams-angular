@@ -25,6 +25,7 @@
                     SongPlayer.currentTime = currentBuzzObject.getTime();
                 });
             });
+            SongPlayer.autoPlay();
             SongPlayer.currentSong = song;
         };
         /**
@@ -105,6 +106,7 @@
                     playSong(song);
                 }
             }
+            //SongPlayer.autoPlay();
         };
         /**
         * @method pause
@@ -158,6 +160,17 @@
         SongPlayer.setCurrentTime = function(time) {
             if (currentBuzzObject) {
                 currentBuzzObject.setTime(time);
+            }
+        };
+        /**
+        * @function autoPlay
+        * @desc Automatically plays the next song when current song ends. 
+        */
+        SongPlayer.autoPlay = function() {
+            if (currentBuzzObject) {
+                currentBuzzObject.bind('ended', function() {
+                    SongPlayer.next();
+                });
             }
         };
         return SongPlayer;
