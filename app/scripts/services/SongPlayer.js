@@ -36,7 +36,6 @@
         var playSong = function(song) {
             currentBuzzObject.play();
             song.playing = true;
-            SongPlayer.currentPlayingAlbum = Fixtures.getAlbum();
         };
         /**
         * @function stopSong
@@ -71,6 +70,11 @@
         */
         SongPlayer.volume = 80;
         /**
+        * @desc Stores the previous value of volume when we change the volume
+        * @type {number}
+        */
+        SongPlayer.previousVolume = null;
+        /**
         * @method setVolume
         * @desc Changes the volume in the currentBuzzObject
         * @param {number} volume
@@ -78,18 +82,22 @@
         SongPlayer.setVolume = function(volume) {
             if (currentBuzzObject) {
                 currentBuzzObject.setVolume(volume);
+                SongPlayer.previousVolume = SongPlayer.volume;
+                SongPlayer.volume = volume;
             }
         };
+        /**
+        * @method revertVolume
+        * @desc Reverts the volume back to previous value
+        */
+        SongPlayer.revertVolume = function() {
+            SongPlayer.setVolume(SongPlayer.previousVolume);
+        }
         /**
         * @desc Current playing album object
         * @type {object}
         */
         SongPlayer.currentAlbum = Fixtures.getAlbum();
-        /**
-        * @desc Album of the currnet playing song used for ng-show in player bar
-        * @type {object}
-        */
-        SongPlayer.currentPlayingAlbum = false;
         /**
         * @method play
         * @desc Executes playSong function, and sets a new song if selected song is not the SongPlayer.currentSong
@@ -164,7 +172,7 @@
         };
         /**
         * @function autoPlay
-        * @desc Automatically plays the next song when current song ends. 
+        * @desc Automatically plays the next song when current song ends.
         */
         SongPlayer.autoPlay = function() {
             if (currentBuzzObject) {
