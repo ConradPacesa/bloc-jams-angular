@@ -10,7 +10,7 @@
             .state('landing', {
                 url:'/',
                 controller: 'LandingCtrl as landing',
-                templateUrl: '/templates/landing.html'
+                templateUrl: '/templates/landing.html'       
             })
             .state('album', {
                 url: '/album',
@@ -25,6 +25,6 @@
     }
 
     angular
-        .module('blocJams', ['ui.router'])
+        .module('blocJams', ['ui.router', 'firebase'])
         .config(config);
 })();
