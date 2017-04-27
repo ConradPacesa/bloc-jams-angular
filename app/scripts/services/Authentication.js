@@ -16,9 +16,10 @@
         }
 
         firebase.auth().onAuthStateChanged(function(firebaseUser) {
+            $rootScope.$broadcast("authChanged", {firebaseUser});
             Authentication.firebaseUser = firebaseUser;
             if (firebaseUser) {
-                $rootScope.$broadcast("authChanged", {firebaseUser});
+
                 console.log('Signed in as:', firebaseUser.uid);
             } else {
                 console.log('Singed out');

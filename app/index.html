@@ -19,9 +19,9 @@
                 <img src="assets/images/bloc_jams_logo.png" alt="bloc jams logo">
             </a>
             <div class="links-container">
-                <!-- <pre>{{index.auth | json}}</pre> -->
-                <a class="sign-in-out" ng-click="index.auth.signIn()" ng-hide="index.auth.firebaseUser">Sign In</a>
-                <a class="sign-in-out" ng-click="index.auth.signOut()" ng-show="index.auth.firebaseUser">Sign Out</a>
+                <pre>{{index | json}}</pre>
+                <a class="sign-in-out" ng-click="index.logIn()" ng-if="!index.isLoggedIn">Sign In</a>
+                <a class="sign-in-out" ng-click="index.logOut()" ng-if="index.isLoggedIn">Sign Out</a>
                 <a ui-sref="collection" class="navbar-link">collection</a>
             </div>
         </nav>
