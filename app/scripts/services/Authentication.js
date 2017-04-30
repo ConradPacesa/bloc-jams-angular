@@ -1,5 +1,5 @@
 (function() {
-    function Authentication($log, $firebaseAuth) {
+    function Authentication($log) {
         var githubProvider = new firebase.auth.GithubAuthProvider();
 
         return {
