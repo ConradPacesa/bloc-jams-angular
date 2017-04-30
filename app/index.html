@@ -21,7 +21,7 @@
             <div class="links-container">
                 <a class="sign-in-out" ng-click="index.logIn()" ng-if="!index.user">Sign In</a>
                 <a class="sign-in-out" ng-click="index.logOut()" ng-if="index.user">Sign Out</a>
-                <a ui-sref="collection" class="navbar-link">collection</a>
+                <a ui-sref="collection" class="navbar-link" ng-if="index.user">collection</a>
             </div>
         </nav>
 
