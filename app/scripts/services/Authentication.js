@@ -1,43 +1,24 @@
 (function() {
-    function Authentication($rootScope, $firebaseAuth) {
+    function Authentication($log, $firebaseAuth) {
+        var githubProvider = new firebase.auth.GithubAuthProvider();
 
-         Authentication.signIn = function() {
-            var provider = new firebase.auth.GithubAuthProvider();
-
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-                var token = result.credential.accessToken;
-                var user = result.user;
-            }).catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var email = error.email;
-                var credential = error.credential;
+        return {
+          signIn: function () {
+            return firebase.auth().signInWithPopup(githubProvider).then(function (result) {
+              return result.user;
+            }).catch(function (error) {
+              $log.error("Authentication failed!");
+              $log.error(error);
             });
-        }
+          },
 
-        firebase.auth().onAuthStateChanged(function(firebaseUser) {
-            $rootScope.$broadcast("authChanged", {firebaseUser});
-            Authentication.firebaseUser = firebaseUser;
-            if (firebaseUser) {
-
-                console.log('Signed in as:', firebaseUser.uid);
-            } else {
-                console.log('Singed out');
-            }
-        });
-
-        Authentication.signOut = function() {
-            firebase.auth().signOut().then(function() {
-
-            }).catch(function(error) {
-
-            });
-        }
-
-        return Authentication;
+          signOut: function () {
+            return firebase.auth().signOut();
+          }
+        };
     }
 
     angular
         .module('blocJams')
-        .factory('Authentication', ['$rootScope', '$firebaseAuth', Authentication]);
+        .factory('Authentication', ['$log', Authentication]);
 })();

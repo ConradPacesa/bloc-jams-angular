@@ -1,39 +1,32 @@
 (function() {
-    function IndexCtrl($log, $rootScope, Authentication) {
+    function IndexCtrl($log, $scope, Authentication) {
         var vm = this;
-        vm.auth = Authentication;
         vm.user = null;
-        vm.isLoggedIn = false;
+        vm.logIn = logIn;
+        vm.logOut = logOut;
 
         activate();
-
-        $rootScope.$on("authChanged", function(event, data) {
-            debugger;
-            console.log(event, data);
-            if (data.firebaseUser) {
-                vm.user = data.firebaseUser;
-                vm.isLoggedIn = true;
-            } else {
-                vm.user = null;
-                vm.isLoggedIn = false;
-            }
-        });
 
         function activate() {
             $log.debug("Activating IndexCtrl");
         }
 
+        function logIn () {
+          return Authentication.signIn().then(setUser);
+        }
 
-        vm.logIn = function() {
-            vm.auth.signIn();
-        };
+        function logOut () {
+          return Authentication.signOut().then(setUser);
+        }
 
-        vm.logOut = function() {
-            debugger;
-            vm.auth.signOut();
-        };
+        function setUser (user) {
+          $scope.$apply(function(){
+            vm.user = user;
+            $log.debug("User: ", vm.user);
+          })
+        }
     }
     angular
         .module('blocJams')
-        .controller('IndexCtrl', ["$log", "$rootScope", "Authentication", IndexCtrl]);
+        .controller('IndexCtrl', ["$log", "$scope", "Authentication", IndexCtrl]);
 })();
