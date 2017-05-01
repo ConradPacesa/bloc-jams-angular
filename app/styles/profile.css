@@ -1,0 +1,45 @@
+.profile-info {
+    display: inline;
+}
+
+.profile-picture {
+    display: inline;
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+.profile-info .name {
+    display: inline;
+    position: absolute;
+    vertical-align: top;
+    margin-left: 4rem;
+    padding-top: 2rem;
+}
+
+.profile-info .email {
+    display: inline;
+    position: absolute;
+    vertical-align: top;
+    margin-left: 4rem;
+    padding-top: 4rem;
+}
+
+.fav-title {
+    margin-left: 2rem;
+}
+
+.favorite-songs {
+    width: 80%;
+    margin: 1.5rem auto;
+    font-weight: 300;
+    font-size: 0.75em;
+    border-collapse: collapse;
+    float: left;
+    margin-left: 2rem;
+    margin-bottom: 210px;
+}
+
+.favorite-song-item {
+    height: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}

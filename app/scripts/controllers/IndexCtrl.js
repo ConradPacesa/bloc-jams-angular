@@ -5,11 +5,11 @@
         vm.logIn = logIn;
         vm.logOut = logOut;
 
-        activate();
-
-        function activate() {
-            $log.debug("Activating IndexCtrl");
-        }
+        // activate();
+        //
+        // function activate() {
+        //     $log.debug("Activating IndexCtrl");
+        // }
 
         function logIn () {
           return Authentication.signIn().then(setUser);

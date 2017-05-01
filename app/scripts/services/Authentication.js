@@ -1,24 +1,26 @@
 (function() {
-    function Authentication($log) {
+    function Authentication($rootScope, $log) {
         var githubProvider = new firebase.auth.GithubAuthProvider();
+        $rootScope.authUser = null;
 
-        return {
-          signIn: function () {
+        Authentication.signIn = function () {
             return firebase.auth().signInWithPopup(githubProvider).then(function (result) {
+              console.log(result);
+              $rootScope.authUser = result.user;
               return result.user;
             }).catch(function (error) {
               $log.error("Authentication failed!");
               $log.error(error);
             });
-          },
-
-          signOut: function () {
-            return firebase.auth().signOut();
-          }
         };
+
+        Authentication.signOut = function () {
+            return firebase.auth().signOut();
+        };
+        return Authentication;
     }
 
     angular
         .module('blocJams')
-        .factory('Authentication', ['$log', Authentication]);
+        .factory('Authentication', ['$rootScope', '$log', Authentication]);
 })();

@@ -69,6 +69,16 @@ body {
     cursor: pointer;
 }
 
+.links-container .profile-pic {
+    display: table-cell;
+    margin-top: 1.8rem;
+    margin-right: 1rem;
+}
+
+.links-container .profile-pic:hover {
+    cursor: pointer;
+}
+
 .links-container .sign-in-out:hover {
     color: rgb(233,50,177);
 }
