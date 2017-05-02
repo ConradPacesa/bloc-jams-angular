@@ -1,7 +1,7 @@
 <div class="profile-page">
     <div class="profile-info">
         <img class="profile-picture" src="{{profile.user.photoURL}}" width="100" height="100">
-        <p class="name">ID: {{profile.user.uid}}</p>
+        <p class="name">Name: {{profile.user.providerData[0].displayName}}</p>
         <p class="email">Email: {{profile.user.email}}</p>
     </div>
     <div class="favorites">

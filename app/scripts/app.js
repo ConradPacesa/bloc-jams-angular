@@ -1,5 +1,5 @@
 (function() {
-    function config($stateProvider, $locationProvider) {
+    function config($stateProvider, $locationProvider, $urlRouterProvider) {
         $locationProvider
             .html5Mode({
                 enabled: true,
@@ -10,26 +10,40 @@
             .state('landing', {
                 url:'/',
                 controller: 'LandingCtrl as landing',
-                templateUrl: '/templates/landing.html'
+                templateUrl: '/templates/landing.html',
+                authenticate: false
             })
             .state('album', {
                 url: '/album',
                 controller: 'AlbumCtrl as album',
-                templateUrl: '/templates/album.html'
+                templateUrl: '/templates/album.html',
+                authenticate: true
             })
             .state('collection', {
                 url: '/collection',
                 controller: 'CollectionCtrl as collection',
-                templateUrl: '/templates/collection.html'
+                templateUrl: '/templates/collection.html',
+                authenticate: true
             })
             .state('profile', {
                 url: '/profile',
                 controller: 'ProfileCtrl as profile',
-                templateUrl: '/templates/profile.html'
+                templateUrl: '/templates/profile.html',
+                authenticate: true
             });
+
+            $urlRouterProvider.otherwise('/');
     }
 
     angular
         .module('blocJams', ['ui.router', 'firebase'])
-        .config(config);
+        .config(config)
+        .run(function ($rootScope, $state, Authentication) {
+            $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+                if (toState.authenticate && !$rootScope.authUser) {
+                    $state.transitionTo("landing");
+                    event.preventDefault();
+                }
+            });
+        });
 })();

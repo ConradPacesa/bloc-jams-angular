@@ -37,6 +37,7 @@
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-storage.js"></script>
         <script>
           // Initialize Firebase
           var config = {
@@ -48,6 +49,9 @@
             messagingSenderId: "1072288663270"
           };
           firebase.initializeApp(config);
+          var storage = firebase.storage();
+        //   var storageRef = firebase.storage().ref();
+        //   var musicRef = storageRef.child('music');
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>
