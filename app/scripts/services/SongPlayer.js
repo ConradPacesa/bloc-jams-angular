@@ -1,5 +1,6 @@
 (function() {
-    function SongPlayer($rootScope, Fixtures) {
+    SongPlayer.$inject = ['$rootScope', 'Fixtures', 'Album', '$stateParams'];
+    function SongPlayer($rootScope, Fixtures, Album, $stateParams) {
         var SongPlayer = {};
         /**
         * @desc Buzz object audio file
@@ -52,7 +53,10 @@
         * @param {Object} song
         */
         var getSongIndex = function(song) {
-            return SongPlayer.currentAlbum.songs.indexOf(song);
+            SongPlayer.getCurrentSongs($stateParams.albumId);
+            console.log(song);
+            console.log(SongPlayer.currentSongs);
+            return SongPlayer.currentSongs.indexOf(song);
         }
         /**
         * @desc Active song object from list of songs
@@ -97,7 +101,21 @@
         * @desc Current playing album object
         * @type {object}
         */
-        SongPlayer.currentAlbum = Fixtures.getAlbum();
+        SongPlayer.currentAlbum = Album.getAlbum();
+
+        SongPlayer.currentSongs;
+
+        SongPlayer.getCurrentSongs = function (input) {
+            var currentSongsList;
+            Fixtures.songsRef.orderByChild('albumId').equalTo(input).once('value', function(snapshot) {
+                currentSongsList = snapshot.val();
+            });
+            SongPlayer.currentSongs = currentSongsList;
+        }
+
+
+
+
         /**
         * @method play
         * @desc Executes playSong function, and sets a new song if selected song is not the SongPlayer.currentSong
@@ -114,7 +132,6 @@
                     playSong(song);
                 }
             }
-            //SongPlayer.autoPlay();
         };
         /**
         * @method pause
@@ -138,7 +155,7 @@
             if (currentSongIndex < 0) {
                 stopSong(song);
             } else {
-                var song = SongPlayer.currentAlbum.songs[currentSongIndex];
+                var song = SongPlayer.currentSongs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
@@ -152,10 +169,10 @@
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);
             currentSongIndex++;
 
-            if (currentSongIndex >= SongPlayer.currentAlbum.songs.length) {
+            if (currentSongIndex >= SongPlayer.currentSongs.length) {
                 stopSong(song);
             } else {
-                var song = SongPlayer.currentAlbum.songs[currentSongIndex];
+                var song = SongPlayer.currentSongs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
@@ -186,5 +203,5 @@
 
     angular
         .module('blocJams')
-        .factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);
+        .factory('SongPlayer', SongPlayer);
 })();

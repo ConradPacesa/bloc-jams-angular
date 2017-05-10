@@ -60,6 +60,31 @@ body {
     cursor: pointer;
 }
 
+.links-container .search-container {
+    display: table-cell;
+    position: relative;
+    vertical-align: middle;
+    padding-right: 2rem;
+}
+
+.search-container .search-input {
+    width: 20rem;
+    height: 2rem;
+    border-radius: 5px;
+    color: grey;
+}
+
+.search-container .search-button {
+    height: 2rem;
+    border-radius: 5px;
+}
+
+.search-container .search-button:hover {
+    cursor: pointer;
+    background-color: rgb(233,50,177);
+    color: white;
+}
+
 .links-container .sign-in-out {
     display: table-cell;
     position: relative;

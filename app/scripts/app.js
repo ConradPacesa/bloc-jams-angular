@@ -14,7 +14,7 @@
                 authenticate: false
             })
             .state('album', {
-                url: '/album',
+                url: '/album/:albumId',
                 controller: 'AlbumCtrl as album',
                 templateUrl: '/templates/album.html',
                 authenticate: true

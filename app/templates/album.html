@@ -1,21 +1,16 @@
 <main class="album-view container narrow">
-    <!-- <div ng-if="debuggable" class="debugInfo">
-        <a class="btn btn-default btn-link" ng-click="album.debug = !album.debug">Toggle Debug</a>
-        <pre ng-if="album.debug">{{ album | json }}</pre>
-    </div>
-    <pre ng-if="album.debug" ng-click="album.debug = !album.debug">{{ album | json }}</pre> -->
     <section class="clearfix">
-        <div class="column half">
-            <img src="{{album.albumData.albumArtUrl}}" class="album-cover-art">
+        <div class="column half" ng-repeat="album in album.albumData">
+            <img src="{{album.albumArtUrl}}" class="album-cover-art">
         </div>
-        <div class="album-view-details column half">
-            <h2 class="album-view-title">{{album.albumData.title}}</h2>
-            <h3 class="album-view-artist">{{album.albumData.artist}}</h3>
-            <h5 class="album-view-release-info">{{album.albumData.year + ' ' + album.albumData.label}}</h5>
+        <div class="album-view-details column half" ng-repeat="album in album.albumData">
+            <h2 class="album-view-title">{{album.title}}</h2>
+            <h3 class="album-view-artist">{{album.artist}}</h3>
+            <h5 class="album-view-release-info">{{album.label + ' ' + album.year}}</h5>
         </div>
     </section>
     <table class="album-view-song-list">
-        <tr class="album-view-song-item" ng-mouseover="hovered = true" ng-mouseleave="hovered = false" ng-repeat="song in album.albumData.songs">
+        <tr class="album-view-song-item" ng-mouseover="hovered = true" ng-mouseleave="hovered = false" ng-repeat="song in album.songs track by $index">
             <td class="song-item-number">
                 <span ng-show="!song.playing && !hovered">{{$index + 1}}</span>
                 <a class="album-song-button" ng-show="!song.playing && hovered" ng-click="album.songPlayer.play(song)"><span class="ion-play"></span></a>

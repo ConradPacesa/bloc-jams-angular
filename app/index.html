@@ -20,6 +20,12 @@
                 <img src="assets/images/bloc_jams_logo.png" alt="bloc jams logo">
             </a>
             <div class="links-container">
+                <div class="search-container" ng-controller="SearchCtrl as search" ng-if="index.user">
+                    <form >
+                        <input class="search-input" type="text" placeholder="Enter search here" ng-model="searchValue">
+                        <button class="search-button" type="submit" ng-click="search.find(searchValue)">Search</button>
+                    </form>
+                </div>
                 <a class="sign-in-out" ng-click="index.logIn()" ng-if="!index.user">Sign In</a>
                 <a ui-sref="profile">
                     <img class="profile-pic" ng-if="index.user" width="40", height="40" src="{{index.user.photoURL}}" alt="null">
@@ -37,7 +43,7 @@
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-database.js"></script>
         <script>
           // Initialize Firebase
           var config = {
@@ -49,9 +55,7 @@
             messagingSenderId: "1072288663270"
           };
           firebase.initializeApp(config);
-          var storage = firebase.storage();
-        //   var storageRef = firebase.storage().ref();
-        //   var musicRef = storageRef.child('music');
+          var database = firebase.database();
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>
@@ -59,12 +63,15 @@
         <script src="/scripts/services/Authentication.js"></script>
         <script src="/scripts/services/Fixtures.js"></script>
         <script src="/scripts/services/SongPlayer.js"></script>
+        <script src="/scripts/services/Album.js"></script>
+        <script src="/scripts/services/Search.js"></script>
         <script src="/scripts/controllers/IndexCtrl.js"></script>
         <script src="/scripts/controllers/LandingCtrl.js"></script>
         <script src="/scripts/controllers/CollectionCtrl.js"></script>
         <script src="/scripts/controllers/AlbumCtrl.js"></script>
         <script src="/scripts/controllers/PlayerBarCtrl.js"></script>
         <script src="/scripts/controllers/ProfileCtrl.js"></script>
+        <script src="/scripts/controllers/SearchCtrl.js"></script>
         <script src="/scripts/directives/seekBar.js"></script>
         <script src="/scripts/filters/timecode.js"></script>
     </body>
