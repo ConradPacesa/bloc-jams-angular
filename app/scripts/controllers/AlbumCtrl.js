@@ -2,15 +2,16 @@
     AlbumCtrl.$inject = ['Fixtures', 'SongPlayer', '$stateParams', 'Album'];
     function AlbumCtrl(Fixtures, SongPlayer, $stateParams, Album) {
 
-        activate($stateParams.albumId);
+        activate();
 
-        function activate(input) {
-            setAlbum(input);
+        function activate() {
+            var currentAlbumId = $stateParams.albumId;
+            setAlbum(currentAlbumId);
         }
 
-        function setAlbum(album) {
-            Album.setCurrentAlbum(album);
-            Album.setCurrentSongs(album);
+        function setAlbum(albumId) {
+            Album.setCurrentAlbum(albumId);
+            Album.setCurrentSongs(albumId);
         }
 
         this.albumData = Album.getAlbum();

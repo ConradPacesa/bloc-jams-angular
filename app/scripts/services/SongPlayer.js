@@ -53,9 +53,6 @@
         * @param {Object} song
         */
         var getSongIndex = function(song) {
-            SongPlayer.getCurrentSongs($stateParams.albumId);
-            console.log(song);
-            console.log(SongPlayer.currentSongs);
             return SongPlayer.currentSongs.indexOf(song);
         }
         /**
@@ -102,20 +99,7 @@
         * @type {object}
         */
         SongPlayer.currentAlbum = Album.getAlbum();
-
-        SongPlayer.currentSongs;
-
-        SongPlayer.getCurrentSongs = function (input) {
-            var currentSongsList;
-            Fixtures.songsRef.orderByChild('albumId').equalTo(input).once('value', function(snapshot) {
-                currentSongsList = snapshot.val();
-            });
-            SongPlayer.currentSongs = currentSongsList;
-        }
-
-
-
-
+        SongPlayer.currentSongs = Album.getSongs();
         /**
         * @method play
         * @desc Executes playSong function, and sets a new song if selected song is not the SongPlayer.currentSong
